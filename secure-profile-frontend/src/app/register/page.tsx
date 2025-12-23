@@ -15,6 +15,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function RegisterPage() {
   const router = useRouter();
 
@@ -32,30 +34,28 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-    setError("Enter a valid email address");
-    setLoading(false); 
-    return;
+
+    // Frontend validations
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setError("Enter a valid email address");
+      setLoading(false);
+      return;
     }
 
     if (formData.password.length < 8) {
-    setError("Password must be at least 8 characters long");
-    setLoading(false); 
-    return;
+      setError("Password must be at least 8 characters long");
+      setLoading(false);
+      return;
     }
 
-    const aadhaarRegex = /^\d{12}$/;
-    if (!aadhaarRegex.test(formData.aadhaar)) {
-    setError("Aadhaar must be exactly 12 digits");
-    setLoading(false); 
-    return;
+    if (!/^\d{12}$/.test(formData.aadhaar)) {
+      setError("Aadhaar must be exactly 12 digits");
+      setLoading(false);
+      return;
     }
-
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register/", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/register/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,14 +65,19 @@ export default function RegisterPage() {
 
       const data = await response.json();
 
-      const message =
-      data.error ||
-      data.username?.[0] ||
-      data.email?.[0] ||
-      "Something went wrong";
+      // ❗ IMPORTANT: handle backend errors
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          data.username?.[0] ||
+          data.email?.[0] ||
+          "Registration failed"
+        );
+      }
 
-
+      // Success
       router.push("/login");
+
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
@@ -94,7 +99,7 @@ export default function RegisterPage() {
               <Label>Username</Label>
               <Input
                 required
-                placeholder="Enter A Username"
+                placeholder="Enter a username"
                 value={formData.username}
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
@@ -107,7 +112,7 @@ export default function RegisterPage() {
               <Input
                 type="email"
                 required
-                placeholder="Enter Email ID"
+                placeholder="Enter email"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -120,7 +125,7 @@ export default function RegisterPage() {
               <Input
                 type="password"
                 required
-                placeholder="Enter Password"
+                placeholder="Enter password"
                 value={formData.password}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -132,7 +137,7 @@ export default function RegisterPage() {
               <Label>Aadhaar</Label>
               <Input
                 required
-                placeholder="Enter your Aadhaar"
+                placeholder="12-digit Aadhaar"
                 value={formData.aadhaar}
                 onChange={(e) =>
                   setFormData({ ...formData, aadhaar: e.target.value })

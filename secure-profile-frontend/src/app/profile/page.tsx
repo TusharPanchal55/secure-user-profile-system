@@ -1,12 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, User, CreditCard, LogOut, Loader2, AlertCircle } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Shield,
+  User,
+  CreditCard,
+  LogOut,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface UserProfile {
   username: string;
@@ -16,6 +31,7 @@ interface UserProfile {
 
 export default function ProfilePage() {
   const router = useRouter();
+
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -30,8 +46,11 @@ export default function ProfilePage() {
       }
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/profile/", {
-          headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/profile/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         });
 
         if (!response.ok) {
@@ -57,7 +76,7 @@ export default function ProfilePage() {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    router.push("/");
+    router.push("/login");
   };
 
   if (loading) {
@@ -76,6 +95,7 @@ export default function ProfilePage() {
             <Shield className="h-6 w-6 text-primary" />
             <span className="text-xl font-semibold">SecureAuth</span>
           </Link>
+
           <Button variant="ghost" onClick={handleLogout}>
             <LogOut className="h-4 w-4 mr-2" />
             Logout
@@ -87,7 +107,9 @@ export default function ProfilePage() {
         <div className="max-w-3xl mx-auto space-y-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Your Profile</h1>
-            <p className="text-muted-foreground">View your secure account information</p>
+            <p className="text-muted-foreground">
+              View your secure account information
+            </p>
           </div>
 
           {error && (
@@ -99,55 +121,62 @@ export default function ProfilePage() {
 
           {profile && (
             <div className="grid gap-6">
-              {/* Account Information Card */}
+              {/* Account Info */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <User className="h-5 w-5" />
                     Account Information
                   </CardTitle>
-                  <CardDescription>Your personal account details</CardDescription>
+                  <CardDescription>
+                    Your personal account details
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-[100px_1fr] gap-4 py-2 border-b border-border">
-                    <span className="text-sm font-medium text-muted-foreground">Username</span>
-                    <span className="text-sm font-mono">{profile.username}</span>
+                  <div className="grid grid-cols-[100px_1fr] gap-4 py-2 border-b">
+                    <span className="text-sm text-muted-foreground">
+                      Username
+                    </span>
+                    <span className="font-mono">{profile.username}</span>
                   </div>
                   <div className="grid grid-cols-[100px_1fr] gap-4 py-2">
-                    <span className="text-sm font-medium text-muted-foreground">Email</span>
-                    <span className="text-sm font-mono">{profile.email}</span>
+                    <span className="text-sm text-muted-foreground">
+                      Email
+                    </span>
+                    <span className="font-mono">{profile.email}</span>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Aadhaar Information Card */}
+              {/* Aadhaar */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <CreditCard className="h-5 w-5" />
                     Aadhaar Information
                   </CardTitle>
-                  <CardDescription>Your encrypted Aadhaar details</CardDescription>
+                  <CardDescription>
+                    Your encrypted Aadhaar details
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-[100px_1fr] gap-4 py-2">
-                    <span className="text-sm font-medium text-muted-foreground">Aadhaar</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-mono tracking-wider">{profile.aadhaar}</span>
-                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-green-500/10 text-green-600 text-xs font-medium">
-                        Encrypted
-                      </span>
-                    </div>
+                    <span className="text-sm text-muted-foreground">
+                      Aadhaar
+                    </span>
+                    <span className="font-mono tracking-wider">
+                      {profile.aadhaar}
+                    </span>
                   </div>
-                  <Alert className="bg-muted/50 border-muted-foreground/20">
+
+                  <Alert className="bg-muted/50">
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="text-xs">
-                      Your Aadhaar number is encrypted using AES-256 encryption before storage. The displayed number has
-                      been decrypted for your viewing.
+                      Aadhaar is encrypted using AES-256 before storage.
                     </AlertDescription>
                   </Alert>
                 </CardContent>
-              </Card>              
+              </Card>
             </div>
           )}
         </div>

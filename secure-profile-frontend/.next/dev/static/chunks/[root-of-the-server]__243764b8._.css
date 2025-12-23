@@ -134,8 +134,6 @@
     --color-red-700: #bf000f;
     --color-green-50: #f0fdf4;
     --color-green-400: #05df72;
-    --color-green-500: #00c758;
-    --color-green-600: #00a544;
     --color-green-700: #008138;
     --color-blue-50: #eff6ff;
     --color-blue-400: #54a2ff;
@@ -189,8 +187,6 @@
       --color-red-700: lab(40.4273% 67.2623 53.7441);
       --color-green-50: lab(98.1563% -5.60117 2.75913);
       --color-green-400: lab(78.503% -64.9265 39.7492);
-      --color-green-500: lab(70.5521% -66.5147 45.8072);
-      --color-green-600: lab(59.0978% -58.6621 41.2579);
       --color-green-700: lab(47.0329% -47.0239 31.4788);
       --color-blue-50: lab(96.492% -1.14647 -5.11479);
       --color-blue-400: lab(65.0361% -1.42062 -56.9803);
@@ -538,10 +534,6 @@
     display: grid;
   }
 
-  .inline-flex {
-    display: inline-flex;
-  }
-
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
@@ -556,10 +548,6 @@
 
   .h-8 {
     height: calc(var(--spacing) * 8);
-  }
-
-  .h-11 {
-    height: calc(var(--spacing) * 11);
   }
 
   .min-h-screen {
@@ -690,10 +678,6 @@
     border-radius: .25rem;
   }
 
-  .rounded-md {
-    border-radius: calc(var(--radius)  - 2px);
-  }
-
   .rounded-xl {
     border-radius: calc(var(--radius)  + 4px);
   }
@@ -728,16 +712,6 @@
     border-color: var(--color-green-400);
   }
 
-  .border-muted-foreground\/20 {
-    border-color: var(--muted-foreground);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .border-muted-foreground\/20 {
-      border-color: color-mix(in oklab, var(--muted-foreground) 20%, transparent);
-    }
-  }
-
   .border-red-400 {
     border-color: var(--color-red-400);
   }
@@ -764,16 +738,6 @@
 
   .bg-green-50 {
     background-color: var(--color-green-50);
-  }
-
-  .bg-green-500\/10 {
-    background-color: #00c7581a;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-green-500\/10 {
-      background-color: color-mix(in oklab, var(--color-green-500) 10%, transparent);
-    }
   }
 
   .bg-muted\/50 {
@@ -956,20 +920,12 @@
     color: var(--card-foreground);
   }
 
-  .text-foreground {
-    color: var(--foreground);
-  }
-
   .text-gray-700 {
     color: var(--color-gray-700);
   }
 
   .text-gray-800 {
     color: var(--color-gray-800);
-  }
-
-  .text-green-600 {
-    color: var(--color-green-600);
   }
 
   .text-green-700 {
@@ -998,10 +954,6 @@
 
   .underline {
     text-decoration-line: underline;
-  }
-
-  .underline-offset-4 {
-    text-underline-offset: 4px;
   }
 
   .antialiased {
