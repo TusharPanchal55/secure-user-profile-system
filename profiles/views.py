@@ -13,11 +13,12 @@ SECRET_KEY = "WfSSOTxc8KKc5RfC9K4yN4jDs6P0eW6CGGN-jH0KF3s="
 def token_required(func):
     @wraps(func)
     def wrapper(self, request, *args, **kwargs):
-        token = request.headers.get('Authorization')
-        if not token:
+        auth_header = request.META.get('HTTP_AUTHORIZATION')
+        #token = request.headers.get('Authorization')
+        if not auth_header:
             return Response({'error': 'Token missing'},status = 401)
         try:
-            token = token.split(" ")[1]
+            token = auth_header.split(" ")[1]
             payload = jwt.decode(token, SECRET_KEY, algorithms = ['HS256'])
             request.user = UserProfile.objects.get(username = payload['username'])
         except:
@@ -39,6 +40,17 @@ class LoginUser(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user = UserProfile.objects.filter(username=username).first()
+        if not user:
+            return Response(
+                {'error': 'User does not exist'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        if not user.check_password(password):
+            return Response(
+                {'error': 'Incorrect password'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
         if user and user.check_password(password):
             token = jwt.encode({'username': user.username}, SECRET_KEY, algorithm = 'HS256')
             return Response({'token':token}, status=status.HTTP_200_OK)

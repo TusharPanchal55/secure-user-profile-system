@@ -40,12 +40,13 @@ pip install -r requirements.txt
 
 # Apply migrations
 python manage.py makemigrations
+
 python manage.py migrate
 
 # Run server
 python manage.py runserver
 
-Create a .env file with:
+**Create a .env file with:**
 
 ENCRYPTION_KEY=your_fernet_key
 
