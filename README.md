@@ -47,10 +47,10 @@ python manage.py runserver
 
 Create a .env file with:
 
-SECRET_KEY=your_jwt_secret
 ENCRYPTION_KEY=your_fernet_key
 
 **API Documentation**
+
 Postman Collection: docs/postman_collection.json
 
 **Database Schema**
