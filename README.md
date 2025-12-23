@@ -1,85 +1,60 @@
 # Secure User Profile & Access Control System
 
 ## Project Overview
-This project is a Secure User Profile & Access Control System designed as an identity management microservice.  
-It provides secure user registration, authentication, and profile access using JWT-based authentication and encryption for sensitive data.  
-Sensitive identity information such as Aadhaar/ID numbers is encrypted at rest and decrypted only for authorized access.  
-The system is built with a clear separation between backend APIs and frontend UI, following best security and API design practices.
+This project is a Secure User Profile and Access Control System built as an identity management microservice.  
+It implements JWT-based authentication and AES-256 encryption to securely store and retrieve sensitive user identity data such as Aadhaar/ID numbers.
+
+**Tech Stack**
+- Backend: Django, Django REST Framework
+- Frontend: React (planned)
+- Database: PostgreSQL
+- Security: JWT, AES Encryption
+- Deployment: Render (Backend), Vercel (Frontend)
 
 ---
 
-## Tech Stack
-**Backend**
-- Django
-- Django REST Framework
-- JWT (JSON Web Tokens)
+## Features
+- User Registration with encrypted Aadhaar/ID storage
+- Secure Login with JWT authentication
+- JWT-protected Profile API
+- Decryption of Aadhaar/ID only on authorized access
+- Robust API error handling
+
+---
+
+## Backend Setup Instructions
+
+### Prerequisites
+- Python 3.11+
 - PostgreSQL
-- AES-based encryption (cryptography library)
+- Virtualenv
 
-**Frontend**
-- React.js
+### Steps
 
-**Deployment**
-- Backend: Render
-- Frontend: Vercel
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
----
+# Install dependencies
+pip install -r requirements.txt
 
-## Setup & Run Instructions
-
-### Backend Setup
-1. Clone the repository
-2. Create and activate a virtual environment
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-Create a .env file and configure required environment variables (DB credentials, encryption key, JWT secret)
-
-Apply database migrations:
-
-bash
-Copy code
+# Apply migrations
 python manage.py makemigrations
 python manage.py migrate
-Start the backend server:
 
-bash
-Copy code
+# Run server
 python manage.py runserver
-Frontend Setup
-Navigate to the frontend folder
 
-Install dependencies:
+Create a .env file with:
 
-bash
-Copy code
-npm install
-Start the frontend:
+SECRET_KEY=your_jwt_secret
+ENCRYPTION_KEY=your_fernet_key
 
-bash
-Copy code
-npm start
-API Documentation
-1. Register User
-Endpoint: POST /api/register/
-Authentication: Not Required
-Description:
-Registers a new user and securely encrypts the Aadhaar/ID number before storing it in the database.
-
-2. Login User
-Endpoint: POST /api/login/
-Authentication: Not Required
-Description:
-Authenticates the user using username and password and returns a JWT token for authorized access.
-
-3. Fetch User Profile
-Endpoint: GET /api/profile/
-Authentication: Required (JWT Token)
-Description:
-Returns the authenticated user's profile data and decrypts the Aadhaar/ID number before sending it to the client.
+**API Documentation**
+Postman Collection: docs/postman_collection.json
 
 **Database Schema**
-UserProfile Table
+(UserProfile Table)
 
 -username (unique)
 
@@ -101,20 +76,19 @@ UserProfile Table
 
 -Token validation middleware for protected routes
 
-AI Tool Usage Log (Mandatory)
-AI assistance was used to design and validate JWT token handling logic.
+**AI Tool Usage Log**
 
-AI was used to help structure encryption and decryption utility functions.
+-AI assistance was used to design and validate JWT token handling logic.
 
-AI support was used for improving API structure and error-handling patterns.
+-AI was used to help structure encryption and decryption utility functions.
 
-All AI-generated code was manually reviewed, modified, and tested before integration.
+-AI support was used for improving API structure and error-handling patterns.
+
+-All AI-generated code was manually reviewed, modified, and tested before integration.
 
 Demo Video
+
 Demo Video Link: (To be added)
 
-Author
+**Author**
 Tushar Panchal
-
-markdown
-Copy code
