@@ -78,26 +78,28 @@ Authentication: Required (JWT Token)
 Description:
 Returns the authenticated user's profile data and decrypts the Aadhaar/ID number before sending it to the client.
 
-Database Schema
+**Database Schema**
 UserProfile Table
-username (unique)
 
-email (unique)
+-username (unique)
 
-password (hashed)
+-email (unique)
 
-aadhaar_enc (encrypted binary data)
+-password (hashed)
 
-created_at
+-aadhaar_enc (encrypted binary data)
 
-Security Implementation
-JWT-based stateless authentication
+-created_at
 
-AES encryption for sensitive fields (Aadhaar/ID)
+**Security Implementation**
 
-Password hashing using Django’s secure hashing utilities
+-JWT-based stateless authentication
 
-Token validation middleware for protected routes
+-AES encryption for sensitive fields (Aadhaar/ID)
+
+-Password hashing using Django’s secure hashing utilities
+
+-Token validation middleware for protected routes
 
 AI Tool Usage Log (Mandatory)
 AI assistance was used to design and validate JWT token handling logic.
