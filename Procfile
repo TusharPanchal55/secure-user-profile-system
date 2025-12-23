@@ -1,1 +1,1 @@
-web: gunicorn secure_user_profile.secure_user_profile.wsgi
+web: gunicorn secure_user_profile.wsgi
