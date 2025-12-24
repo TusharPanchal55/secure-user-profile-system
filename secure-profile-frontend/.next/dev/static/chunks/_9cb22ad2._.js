@@ -216,11 +216,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/input.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/label.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/card.tsx [app-client] (ecmascript)");
-const __TURBOPACK__import$2e$meta__ = {
-    get url () {
-        return `file://${__turbopack_context__.P("src/app/register/page.tsx")}`;
-    }
-};
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -264,7 +259,7 @@ function RegisterPage() {
             return;
         }
         try {
-            const response = await fetch(`${__TURBOPACK__import$2e$meta__.env.VITE_API_URL}/api/register/`, {
+            const response = await fetch('http://127.0.0.1:8000/api/register/', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

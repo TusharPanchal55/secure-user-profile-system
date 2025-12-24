@@ -46,7 +46,7 @@ export default function ProfilePage() {
       }
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/profile/`, {
+        const response = await fetch('http://127.0.0.1:8000/api/profile/', {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

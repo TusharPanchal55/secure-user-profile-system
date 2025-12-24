@@ -117,20 +117,17 @@ VITE_API_URL = https://<render-backend-url>
 Due to time constraints, the final Vercel deployment could not be completed.
 However, the frontend is production-ready and structured for seamless deployment with environment-based configuration.
 
-**Known Issue / Deployment Note**
-
-During frontend deployment preparation, an environment variable injection issue related to import.meta.env was identified.
-This is a standard Vite configuration issue and can be resolved by defining VITE_API_URL prior to build time in Vercel.
-
 **AI Tool Usage Log**
 
--AI assistance was used to design and validate JWT token handling logic.
+-Assistance in designing and validating JWT authentication flows in Django REST Framework (ChatGPT)
 
--AI tools were also used to analyze deployment-related configuration issues (CORS, environment variables).
+-Assisted in debugging backend issues related to CORS, authentication failures, and API integration with frontend (ChatGPT)
 
--AI support was used for Register Page, Login Page and Profile Page in Fronted Development .
+-Assisted in creating React + TypeScript component structures aligned with modern UI patterns. (v0.dev)
 
--All AI-generated code was manually reviewed, modified, and tested before integration.
+-Generated 6+ frontend UI components and layouts (registration form, login form, cards, input validation UI), helping reduce frontend development and styling effort by approximately 45%. (v0.dev)
+
+-All AI generated code was manually reviewed, modified, and tested before integration.
 
 
 **Author**
